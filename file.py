@@ -1,34 +1,27 @@
 import csv
-with open('data.csv', 'rb') as csvfile:
-  jobreader = csv.reader(csvfile, delimiter=',', quotechar= '|')
-  all_jobs = []
-  single_job = []
-  userlocation = "Wien"
-  useredu = "Uni"
-  userfield = "Marketing"
-  for row in jobreader:
-    for column in row:
-      single_job.append(column)
-    all_jobs.append(row)
-  # example: print first item (job title) for second row (first job)
-  #print(all_jobs[1][0])
-  
-  saved_jobs = []
-  saved_job = []
-
-  for each_item in all_jobs:
-    if str(userlocation) in each_item[1]:
-      if str(useredu) in each_item[3]:
-        if str(userfield) in each_item[2]:
-          print(each_item[0] + "\n" + each_item[-1])
-        else:
-          continue
-    else:
-      continue
+userlocation = "Wien"
+useredu = "Uni"
+userfield = "IT"
 
 
+#jobs = find_jobs(userfield, useredu, userfield)
+
+def find_jobs(userlocation, useredu, userfield):
+  with open('data.csv', 'rb') as csvfile:
+    jobreader = csv.reader(csvfile, delimiter=',', quotechar= '"')
+
+    jobs = []
+    for row in jobreader:
+      if str(row[1]).lower() == userlocation.lower():
+        if str(row[3]).lower() == str(useredu).lower():
+          if str(row[2]).lower() == str(userfield).lower():
+            jobs.append(row[0] + " " +row[-1])
+    return len(jobs)     
+    #return jobs.length
+
+    #return jobs
     #print '\n'.join(row)
 
-
-
+length = find_jobs(userlocation, useredu, userfield)
+print length
 #if str(row[2]) == str(text)
